@@ -39,3 +39,15 @@ app.post("/api/respuestas", async (req, res) => {
 app.listen(PORT, () => {
   console.log(`🚀 Servidor corriendo en http://localhost:${PORT}`);
 });
+
+app.get("/api/ver-respuestas", (req, res) => {
+  const db = require("./conexion").conectar();
+  db.all("SELECT * FROM respuestas", (err, rows) => {
+    if (err) {
+      res.status(500).json({ error: "Error al leer la base de datos" });
+    } else {
+      res.json(rows);
+    }
+    db.close();
+  });
+});
