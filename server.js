@@ -17,18 +17,18 @@ crearTablaRespuestas();
 
 app.post("/api/respuestas", async (req, res) => {
   try {
-    const { nombre, puntaje, materia, respuestas } = req.body;
+    const { nombre, puntaje, materia, respuestas, sede, jornada} = req.body;
 
-    if (!nombre || typeof puntaje !== "number" || !materia || !respuestas) {
+    if (!nombre || typeof puntaje !== "number" || !materia || !respuestas || !sede || !jornada) {
       return res.status(400).json({ error: "❌ Datos incompletos o inválidos." });
     }
 
-    const yaExiste = await existeRespuesta(nombre, materia);
+    const yaExiste = await existeRespuesta(nombre, materia, sede);
     if (yaExiste) {
       return res.status(409).json({ error: "🔒 Ya has respondido este examen con ese nombre y materia." });
     }
 
-    await insertarRespuesta(nombre, puntaje, materia, JSON.stringify(respuestas));
+    await insertarRespuesta(nombre, puntaje, materia, sede, jornada, JSON.stringify(respuestas));
     res.json({ mensaje: "✅ Respuestas guardadas correctamente." });
   } catch (error) {
     console.error("❌ Error en /api/respuestas:", error.message);
