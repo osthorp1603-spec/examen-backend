@@ -6,6 +6,8 @@ const {
   existeRespuesta
 } = require("./dao/respuestasDAO");
 
+const { conectar } = require("./conexion");
+
 const app = express();
 const PORT = 3000;
 
@@ -17,7 +19,7 @@ crearTablaRespuestas();
 
 app.post("/api/respuestas", async (req, res) => {
   try {
-    const { nombre, puntaje, materia, respuestas, sede, jornada} = req.body;
+    const { nombre, puntaje, materia, respuestas, sede, jornada } = req.body;
 
     if (!nombre || typeof puntaje !== "number" || !materia || !respuestas || !sede || !jornada) {
       return res.status(400).json({ error: "❌ Datos incompletos o inválidos." });
@@ -36,20 +38,19 @@ app.post("/api/respuestas", async (req, res) => {
   }
 });
 
-
+// ✅ ADAPTADO A MYSQL
+app.get("/api/ver-respuestas", async (req, res) => {
+  try {
+    const conexion = await conectar();
+    const [rows] = await conexion.execute("SELECT * FROM respuestas");
+    res.json(rows);
+    await conexion.end();
+  } catch (err) {
+    console.error("❌ Error al leer respuestas:", err);
+    res.status(500).json({ error: "Error al leer la base de datos" });
+  }
+});
 
 app.listen(PORT, () => {
   console.log(`🚀 Servidor corriendo en http://localhost:${PORT}`);
-});
-
-app.get("/api/ver-respuestas", (req, res) => {
-  const db = require("./conexion").conectar();
-  db.all("SELECT * FROM respuestas", (err, rows) => {
-    if (err) {
-      res.status(500).json({ error: "Error al leer la base de datos" });
-    } else {
-      res.json(rows);
-    }
-    db.close();
-  });
 });
