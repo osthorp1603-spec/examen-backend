@@ -36,6 +36,12 @@ app.post("/api/respuestas", async (req, res) => {
   }
 });
 
+app.get("/api/respuestas", (req, res) => {
+  res.status(405).json({
+    error: "❌ Esta ruta solo acepta POST. Si quieres ver las respuestas, usa /api/ver-respuestas"
+  });
+});
+
 app.listen(PORT, () => {
   console.log(`🚀 Servidor corriendo en http://localhost:${PORT}`);
 });
