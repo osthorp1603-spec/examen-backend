@@ -8,6 +8,8 @@ function crearTablaRespuestas() {
       nombre TEXT NOT NULL,
       puntaje INTEGER NOT NULL,
       materia TEXT NOT NULL,
+      sede TEXT NOT NULL,
+      jornada TEXT NOT NULL,
       respuestas TEXT NOT NULL
     )`,
     (err) => {
@@ -21,13 +23,13 @@ function crearTablaRespuestas() {
   );
 }
 
-function insertarRespuesta(nombre, puntaje, materia, respuestasJSON) {
+function insertarRespuesta(nombre, puntaje, materia, sede, jornada, respuestasJSON) {
   return new Promise((resolve, reject) => {
     const db = conectar();
     db.run(
-      `INSERT INTO respuestas (nombre, puntaje, materia, respuestas)
-       VALUES (?, ?, ?, ?)`,
-      [nombre, puntaje, materia, respuestasJSON],
+      `INSERT INTO respuestas (nombre, puntaje, materia, sede, jornada, respuestas)
+       VALUES (?, ?, ?, ?, ?, ?)`,
+      [nombre, puntaje, materia, sede, jornada, respuestasJSON],
       function (err) {
         if (err) {
           console.error("❌ Error al insertar respuesta:", err);
@@ -42,12 +44,12 @@ function insertarRespuesta(nombre, puntaje, materia, respuestasJSON) {
   });
 }
 
-function existeRespuesta(nombre, materia) {
+function existeRespuesta(nombre, materia, sede) {
   return new Promise((resolve, reject) => {
     const db = conectar();
     db.get(
-      `SELECT id FROM respuestas WHERE nombre = ? AND materia = ?`,
-      [nombre, materia],
+      `SELECT id FROM respuestas WHERE nombre = ? AND materia = ? AND sede = ?`,
+      [nombre, materia, sede],
       (err, row) => {
         db.close();
         if (err) {
