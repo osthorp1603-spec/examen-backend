@@ -1,0 +1,5 @@
+id,nombre,puntaje,materia,sede,jornada,respuestas
+1,"dta dfd",5,"React","sur","diurno","{"p1":"b","p2":"b","p3":"b","p4":"b","p5":"b","p6":"c","p7":"b","p8":"b","p9":"b","p10":"b"}"
+2,"Manrrique Martinez Cristian David",7,"React","sur","nocturno","{"p1":"b","p2":"b","p3":"b","p4":"a","p5":"a","p6":"c","p7":"a","p8":"b","p9":"a","p10":"a"}"
+3,"mora valencia yeison stiven",6,"React","sur","nocturno","{"p1":"b","p2":"b","p3":"b","p4":"a","p5":"a","p6":"c","p7":"a","p8":"b","p9":"b","p10":"a"}"
+4,"ramos olave andres mauricio",6,"React","sur","nocturno","{"p1":"b","p2":"b","p3":"b","p4":"a","p5":"a","p6":"c","p7":"c","p8":"b","p9":"b","p10":"a"}"
