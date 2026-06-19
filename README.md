@@ -84,7 +84,7 @@ The system flow is:
 
 ## Evidence
 
-![main_page](evidencias/formulario.png)
+!![main_page](./evidencias/formulario.png)
 ![Instructions_view](evidencias/instrucciones.png)
 ![exam_page](evidencias/examen.png)
 ![results_page](evidencias/nota.png)
